@@ -84,6 +84,76 @@ const ActionsRow = () => {
   );
 };
 
+// export const FeedItem: React.FC<FeedItemProps> = ({
+//   type,
+//   content,
+//   thumbnail,
+//   link,
+//   author,
+//   stats,
+// }) => {
+//   return (
+//     <Card className="p-0 mt-2">
+//       <div className="flex flex-row p-4">
+//         <UserAvatar imageUrl={author.imageUrl} />
+//         <div className="pl-4">
+//           <div className="flex flex-row items-center">
+//             <div className="font-semibold">{author.name}</div>
+//             <div className="ml-2 text-muted-foreground text-sm">
+//               • {author.connectionDegree}
+//             </div>
+//           </div>
+//           <div className="text-xs text-zinc-500">{author.subtext}</div>
+//         </div>
+//       </div>
+//       <div className="p-4 text-sm pt-0">{content}</div>
+//       {thumbnail && <img src={thumbnail} className="w-full h-auto" />}
+//       {link && (
+//         <>
+//           <img src={link.thumbnail} className="w-full h-auto" />
+//           <div className="p-4 bg-slate-200">
+//             <div className="text-sm font-semibold">{link.title}</div>
+//             <div className="text-xs text-zinc-500 mt-1">
+//               {link.href && extractDomain(link.href)}
+//             </div>
+//           </div>
+//         </>
+//       )}
+//       <LikesCountRow stats={stats} />
+//       <ActionsRow />
+//     </Card>
+//   );
+// };
+
+const renderContentWithFormatting = (text: string) => {
+  const hashtagRegex = /#(\w+)/g;
+
+  return text.split("\n").map((line, i) => {
+    const parts = line.split(hashtagRegex);
+    return (
+      <p key={i} className="mb-2 whitespace-pre-wrap">
+        {parts.map((part, index) => {
+          if (index % 2 === 1) {
+            // This is the hashtag
+            return (
+              <a
+                key={index}
+                href={`https://www.linkedin.com/feed/hashtag/${part}`}
+                className="text-blue-600 hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                #{part}
+              </a>
+            );
+          }
+          return <span key={index}>{part}</span>;
+        })}
+      </p>
+    );
+  });
+};
+
 export const FeedItem: React.FC<FeedItemProps> = ({
   type,
   content,
@@ -106,7 +176,9 @@ export const FeedItem: React.FC<FeedItemProps> = ({
           <div className="text-xs text-zinc-500">{author.subtext}</div>
         </div>
       </div>
-      <div className="p-4 text-sm pt-0">{content}</div>
+
+      <div className="p-4 text-sm pt-0">{renderContentWithFormatting(content)}</div>
+
       {thumbnail && <img src={thumbnail} className="w-full h-auto" />}
       {link && (
         <>

@@ -1,6 +1,28 @@
 import { BookmarkIcon, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { Card } from "./primitives/Card";
+// This context will be used to share the scroll count between components
+import { createContext, useContext } from "react";
+
+// Create a context for the scroll count
+const ScrollContext = createContext({
+  scrolledPosts: 0,
+  setScrolledPosts: (count: number) => {}
+});
+
+// This hook will be used in the main component to update the scroll count
+export const useScrollContext = () => useContext(ScrollContext);
+
+// Provider component to wrap around your app
+export const ScrollProvider = ({ children }) => {
+  const [scrolledPosts, setScrolledPosts] = useState(0);
+  
+  return (
+    <ScrollContext.Provider value={{ scrolledPosts, setScrolledPosts }}>
+      {children}
+    </ScrollContext.Provider>
+  );
+};
 
 const MyProfileHeader = () => {
   return (
@@ -22,7 +44,26 @@ const MyProfileHeader = () => {
   );
 };
 
+const titles = [
+  "Deadass Brokey",
+  "Mama's Little Helper",
+  "Assistant to the Regional Manager",
+  "Beet Grower at Schrute Farms",
+  "Professional Dogwalker",
+  "Professional Dog",
+  "Professional Doggystyler",
+  "CEO of Bluechew",
+  "Jeff Bezo's Wife",
+  "Literally the President of America",
+  "Enlightened God of LinkedIn",
+];
+
 const MyProfileProfession = () => {
+  const { scrolledPosts } = useScrollContext();
+
+  const titleIndex = Math.min(Math.floor(scrolledPosts / 10), titles.length - 1);
+  const title = titles[titleIndex];
+
   return (
     <a
       className="flex justify-center items-center flex-col mt-4 pb-4 border-b border-slate-200"
@@ -30,9 +71,9 @@ const MyProfileProfession = () => {
       target="_blank"
     >
       <div className="text-md font-medium hover:underline cursor-pointer">
-        Ozgur GUL
+        Bryan Wang
       </div>
-      <div className="text-xs text-zinc-500 mt-1">Senior Software Engineer</div>
+      <div className="text-xs text-zinc-500 mt-1">{title}</div>
     </a>
   );
 };
@@ -74,6 +115,7 @@ const Discover = () => {
 };
 
 const SidebarDesktopLayout = () => {
+  const { scrolledPosts } = useContext(ScrollContext);
   return (
     <>
       <Card className="overflow-hidden">
@@ -81,8 +123,7 @@ const SidebarDesktopLayout = () => {
         <MyProfileProfession />
         <div>
           <div className="py-3 border-b border-slate-200">
-            <MyProfileStats text="Who's viewed your profile" count={50} />
-            <MyProfileStats text="Impressions of your post" count={9195} />
+            <MyProfileStats text="Job Offers Recieved" count={scrolledPosts} />
           </div>
           <MyItems />
         </div>
@@ -104,8 +145,8 @@ const SidebarMobileLayout = () => {
         {isShowingAllMobile && (
           <div>
             <div className="py-3 border-b border-slate-200">
-              <MyProfileStats text="Who's viewed your profile" count={50} />
-              <MyProfileStats text="Impressions of your post" count={9195} />
+              <MyProfileStats text="Who's viewed your profile" count={0} />
+              <MyProfileStats text="Impressions of your post" count={0} />
             </div>
             <MyItems />
           </div>
@@ -133,7 +174,7 @@ const SidebarMobileLayout = () => {
 export const Sidebar = () => {
   return (
     <div style={{ gridArea: "sidebar" }}>
-      <div className="hidden sm:block">
+      <div className="hidden sm:block sticky top-16 self-start h-fit">
         <SidebarDesktopLayout />
       </div>
       <div className="block sm:hidden">
