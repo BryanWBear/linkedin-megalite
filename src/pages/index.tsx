@@ -14,7 +14,6 @@ export default function Home() {
         <Main />
         <Aside />
       </div>
-      <ChatBox />
       </ScrollProvider>
     </>
   );

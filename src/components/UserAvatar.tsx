@@ -7,7 +7,7 @@ export const UserAvatar: React.FC<{ imageUrl: string; className?: string }> = ({
   return (
     <Avatar className={className}>
       <AvatarImage src={imageUrl} />
-      <AvatarFallback>OG</AvatarFallback>
+      <AvatarFallback>BW</AvatarFallback>
     </Avatar>
   );
 };

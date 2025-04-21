@@ -1,8 +1,7 @@
-import { BookmarkIcon, ChevronDown, ChevronUp } from "lucide-react";
-import { useState } from "react";
+import { Bookmark, Users, FileText, Calendar, ChevronDown, ChevronUp } from "lucide-react";
+import { useState, createContext, useContext } from "react";
 import { Card } from "./primitives/Card";
-// This context will be used to share the scroll count between components
-import { createContext, useContext } from "react";
+import headshot from "../assets/patrick_drool.jpg";
 
 // Create a context for the scroll count
 const ScrollContext = createContext({
@@ -24,21 +23,21 @@ export const ScrollProvider = ({ children }) => {
   );
 };
 
-const MyProfileHeader = () => {
+const ProfileHeader = () => {
   return (
-    <div>
-      <div
-        className="bg-center bg-cover block h-14 w-full"
-        style={{
-          backgroundImage:
-            "url(https://media.licdn.com/dms/image/C5616AQFBJ6o2Z7TrsQ/profile-displaybackgroundimage-shrink_200_800/0/1516968055361?e=1692835200&v=beta&t=MEqhkc8BTKOniiPx0Hphp_pXKJ-0GH6OWaaKLurI8Qc)",
-        }}
-      ></div>
-      <div className="flex justify-center">
-        <img
-          className="w-16 h-16 rounded-full overflow-hidden border-white border-2 mt-[-32px] z-1"
-          src="https://images.pexels.com/photos/1546912/pexels-photo-1546912.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-        />
+    <div className="relative">
+      <div className="bg-slate-300 h-16 w-full rounded-t-lg"></div>
+      <div className="px-4 pb-4">
+        <div className="relative">
+          <img
+            src={headshot}
+            alt="Profile"
+            className="w-24 h-24 rounded-full border-4 border-white absolute -top-12 left-0"
+          />
+        </div>
+        <div className="pt-14">
+          <ProfileInfo />
+        </div>
       </div>
     </div>
   );
@@ -46,9 +45,9 @@ const MyProfileHeader = () => {
 
 const titles = [
   "Deadass Brokey",
-  "Mama's Little Helper",
+  "Forex Trader",
+  "Elon Glazer",
   "Assistant to the Regional Manager",
-  "Beet Grower at Schrute Farms",
   "Professional Dogwalker",
   "Professional Dog",
   "Professional Doggystyler",
@@ -58,128 +57,149 @@ const titles = [
   "Enlightened God of LinkedIn",
 ];
 
-const MyProfileProfession = () => {
+const ProfileInfo = () => {
   const { scrolledPosts } = useScrollContext();
-
   const titleIndex = Math.min(Math.floor(scrolledPosts / 10), titles.length - 1);
   const title = titles[titleIndex];
 
   return (
-    <a
-      className="flex justify-center items-center flex-col mt-4 pb-4 border-b border-slate-200"
-      href="https://www.linkedin.com/in/ozgurgul35/"
-      target="_blank"
-    >
-      <div className="text-md font-medium hover:underline cursor-pointer">
-        Bryan Wang
+    <div>
+      <h2 className="text-xl font-bold">Me</h2>
+      <p className="text-sm text-gray-600 mt-1">
+        {title}
+      </p>
+    </div>
+  );
+};
+
+const ProfileStats = () => {
+  const { scrolledPosts } = useScrollContext();
+  
+  return (
+    <div className="border-t border-gray-200 pt-3 pb-1 px-4">
+      <div className="flex justify-between items-center mb-2">
+        <p className="text-sm font-medium">Profile viewers</p>
+        <span className="text-blue-600 font-medium">{77 + scrolledPosts ** 3}</span>
       </div>
-      <div className="text-xs text-zinc-500 mt-1">{title}</div>
-    </a>
-  );
-};
-
-const MyProfileStats: React.FC<{ text: string; count: number }> = ({
-  text,
-  count,
-}) => {
-  return (
-    <div className="flex flex-row items-center text-xs font-semibold px-3 p-1 cursor-pointer hover:bg-zinc-200">
-      <div className="w-full text-zinc-500">{text}</div>
-      <div className="text-blue-600">{count}</div>
+      <div className="text-sm text-blue-600 font-medium cursor-pointer hover:underline">
+        View all analytics
+      </div>
     </div>
   );
 };
 
-const MyItems: React.FC = () => {
+const PremiumPromo = () => {
   return (
-    <div className="flex flex-row items-center text-xs font-semibold p-3 cursor-pointer hover:bg-zinc-200 text-zinc-600">
-      <BookmarkIcon />
-      <span className="ml-2">My items</span>
+    <div className="border-t border-gray-200 pt-3 px-4 pb-4">
+      <p className="text-sm text-gray-600 mb-2">
+        Subscribe to Premium or we will eat your soul
+      </p>
+      <div className="flex items-center">
+        <div className="w-5 h-5 bg-amber-500 mr-2"></div>
+        <p className="text-sm font-medium">Retry Premium for $1000</p>
+      </div>
     </div>
   );
 };
 
-const Discover = () => {
-  const discoverItem =
-    "font-semibold text-blue-700 text-xs p-3 py-2 hover:underline";
+const SidebarItems = () => {
+  const itemClass = "flex items-center p-3 text-sm font-medium hover:bg-gray-100 cursor-pointer";
+  
   return (
-    <Card className="pt-1 mt-2">
-      <div className={discoverItem}>Groups</div>
-      <div className={discoverItem}>Events</div>
-      <div className={discoverItem}>Followed hashtags</div>
-      <div className="border-t border-zinc-200 hover:bg-zinc-100 text-sm font-semibold text-zinc-500 p-3 text-center cursor-pointer transition-all">
-        Discover more
+    <div className="border-t border-gray-200">
+      <div className={itemClass}>
+        <Bookmark size={20} className="mr-3" />
+        <span>Saved items</span>
+      </div>
+      <div className={itemClass}>
+        <Users size={20} className="mr-3" />
+        <span>Groups</span>
+      </div>
+      <div className={itemClass}>
+        <FileText size={20} className="mr-3" />
+        <span>Newsletters</span>
+      </div>
+      <div className={itemClass}>
+        <Calendar size={20} className="mr-3" />
+        <span>Events</span>
+      </div>
+    </div>
+  );
+};
+
+const StatusCounter = () => {
+  const { scrolledPosts } = useScrollContext();
+  
+  return (
+    <Card className="mt-2 p-4">
+      <p className="text-sm">Posts scrolled this session</p>
+      <p className="text-2xl font-bold text-blue-600 mt-1">{scrolledPosts}</p>
+      <div className="mt-2 text-xs text-gray-500">
+        Scroll through more posts to take your career to new heights!
       </div>
     </Card>
-  );
-};
-
-const SidebarDesktopLayout = () => {
-  const { scrolledPosts } = useContext(ScrollContext);
-  return (
-    <>
-      <Card className="overflow-hidden">
-        <MyProfileHeader />
-        <MyProfileProfession />
-        <div>
-          <div className="py-3 border-b border-slate-200">
-            <MyProfileStats text="Job Offers Recieved" count={scrolledPosts} />
-          </div>
-          <MyItems />
-        </div>
-      </Card>
-      <div className="sticky top-16">
-        <Discover />
-      </div>
-    </>
-  );
-};
-
-const SidebarMobileLayout = () => {
-  const [isShowingAllMobile, setShowingAllMobile] = useState(false);
-  return (
-    <>
-      <Card className="overflow-hidden">
-        <MyProfileHeader />
-        <MyProfileProfession />
-        {isShowingAllMobile && (
-          <div>
-            <div className="py-3 border-b border-slate-200">
-              <MyProfileStats text="Who's viewed your profile" count={0} />
-              <MyProfileStats text="Impressions of your post" count={0} />
-            </div>
-            <MyItems />
-          </div>
-        )}
-      </Card>
-      {isShowingAllMobile && <Discover />}
-      <div
-        className="flex text-zinc-500 font-semibold p-1 mt-2 hover:bg-zinc-200 cursor-pointer flex-row justify-center items-center text-sm"
-        onClick={() => setShowingAllMobile(!isShowingAllMobile)}
-      >
-        {isShowingAllMobile ? (
-          <>
-            Show less <ChevronUp />
-          </>
-        ) : (
-          <>
-            Show more <ChevronDown />
-          </>
-        )}
-      </div>
-    </>
   );
 };
 
 export const Sidebar = () => {
   return (
     <div style={{ gridArea: "sidebar" }}>
-      <div className="hidden sm:block sticky top-16 self-start h-fit">
-        <SidebarDesktopLayout />
+      <div className="hidden sm:block sticky top-4 self-start space-y-2">
+        <Card className="overflow-hidden rounded-lg">
+          <ProfileHeader />
+          <ProfileStats />
+          <PremiumPromo />
+        </Card>
+        <StatusCounter />
+        <Card className="overflow-hidden rounded-lg">
+          <SidebarItems />
+        </Card>
       </div>
+      
       <div className="block sm:hidden">
-        <SidebarMobileLayout />
+        <MobileSidebar />
       </div>
+    </div>
+  );
+};
+
+const MobileSidebar = () => {
+  const [expanded, setExpanded] = useState(false);
+  const { scrolledPosts } = useScrollContext();
+  
+  return (
+    <div className="space-y-2">
+      <Card className="overflow-hidden rounded-lg">
+        <ProfileHeader />
+        {expanded && (
+          <>
+            <ProfileStats />
+            <PremiumPromo />
+            <StatusCounter />
+          </>
+        )}
+        <div 
+          className="p-3 text-center text-gray-600 font-medium border-t border-gray-200 hover:bg-gray-100 cursor-pointer"
+          onClick={() => setExpanded(!expanded)}
+        >
+          {expanded ? (
+            <div className="flex items-center justify-center">
+              Show less <ChevronUp size={16} className="ml-1" />
+            </div>
+          ) : (
+            <div className="flex items-center justify-center">
+              Show more <ChevronDown size={16} className="ml-1" />
+            </div>
+          )}
+        </div>
+      </Card>
+      {expanded && (
+        <>
+          <Card className="overflow-hidden rounded-lg">
+            <SidebarItems />
+          </Card>
+        </>
+      )}
     </div>
   );
 };

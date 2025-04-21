@@ -136,20 +136,11 @@ const ChatsListItem: React.FC<{
 const chatData: ChatsListItemData[] = [
   {
     summary:
-      "I've heard great things about you. Could you be the next big thing at Microsoft?",
+      "I've heard great things about you. Did you cut me off in a Toyota Prius 2018 last week in the Safeway parking lot?",
     sender: {
       name: "Satya Nadella",
       imageUrl:
         "https://media.licdn.com/dms/image/C5603AQHHUuOSlRVA1w/profile-displayphoto-shrink_100_100/0/1579726624860?e=1692835200&v=beta&t=m5EDtXZALcLc9SM6BNRsfbid9cEUxfN8B_LYhdwFwGo",
-    },
-  },
-  {
-    summary:
-      "Ozgur, can you write an algorithm to predict our stock prices? PS: You can't use quantum computing!",
-    sender: {
-      name: "Sundar Pichai",
-      imageUrl:
-        "https://pbs.twimg.com/profile_images/864282616597405701/M-FEJMZ0_400x400.jpg",
     },
   },
   {
