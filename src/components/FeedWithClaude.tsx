@@ -50,8 +50,10 @@ interface FeedWithClaudeProps {
 }
 
 // Configuration
-const API_BASE_URL = 'http://127.0.0.1:5000/api'; // Flask server URL
-
+const API_BASE_URL = process.env.RAILWAY_PUBLIC_DOMAIN 
+  ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}/api` 
+  : 'http://127.0.0.1:5000/api';
+  
 const FeedWithClaude: React.FC<FeedWithClaudeProps> = ({ postId }) => {
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
