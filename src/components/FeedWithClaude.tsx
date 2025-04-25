@@ -50,9 +50,11 @@ interface FeedWithClaudeProps {
 }
 
 // Configuration
-const API_BASE_URL = process.env.SERVER_SERVICE_NAME
-  ? `https://${process.env.SERVER_SERVICE_NAME}/api` 
-  : 'http://127.0.0.1:5000/api';
+const API_BASE_URL = "https://linkedin-megalite-server/api"
+
+// process.env.SERVER_SERVICE_NAME
+//   ? `https://${process.env.SERVER_SERVICE_NAME}/api` 
+//   : 'http://127.0.0.1:5000/api';
 
 const FeedWithClaude: React.FC<FeedWithClaudeProps> = ({ postId }) => {
   const [post, setPost] = useState<Post | null>(null);
