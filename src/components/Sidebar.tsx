@@ -1,7 +1,6 @@
 import { Bookmark, Users, FileText, Calendar, ChevronDown, ChevronUp } from "lucide-react";
 import { useState, createContext, useContext } from "react";
 import { Card } from "./primitives/Card";
-import headshot from "../assets/patrick_drool.jpg";
 
 // Create a context for the scroll count
 const ScrollContext = createContext({
@@ -30,7 +29,7 @@ const ProfileHeader = () => {
       <div className="px-4 pb-4">
         <div className="relative">
           <img
-            src={headshot}
+            src={"/patrick_drool.jpg"}
             alt="Profile"
             className="w-24 h-24 rounded-full border-4 border-white absolute -top-12 left-0"
           />
@@ -45,9 +44,9 @@ const ProfileHeader = () => {
 
 const titles = [
   "Deadass Brokey",
-  "Forex Trader",
   "Elon Glazer",
-  "Assistant to the Regional Manager",
+  "MLM Monkey",
+  "Crypto Bro",
   "Professional Dogwalker",
   "Professional Dog",
   "Professional Doggystyler",
@@ -91,9 +90,6 @@ const ProfileStats = () => {
 const PremiumPromo = () => {
   return (
     <div className="border-t border-gray-200 pt-3 px-4 pb-4">
-      <p className="text-sm text-gray-600 mb-2">
-        Subscribe to Premium or we will eat your soul
-      </p>
       <div className="flex items-center">
         <div className="w-5 h-5 bg-amber-500 mr-2"></div>
         <p className="text-sm font-medium">Retry Premium for $1000</p>
