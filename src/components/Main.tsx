@@ -10,10 +10,10 @@ import { Separator } from "./primitives/Separator";
 import FeedWithClaude from "./FeedWithClaude";
 import { useScrollContext } from "./Sidebar";
 
-// Helper function to generate a random permutation of numbers 1 to n
+// Helper function to generate a random permutation of numbers 0 to n-1
 const generateRandomPermutation = (n: number) => {
-  // Create array from 1 to n
-  const array = Array.from({ length: n }, (_, i) => i + 1);
+  // Create array from 0 to n-1
+  const array = Array.from({ length: n }, (_, i) => i);
   
   // Fisher-Yates shuffle algorithm
   for (let i = array.length - 1; i > 0; i--) {
