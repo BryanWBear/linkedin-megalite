@@ -50,7 +50,7 @@ interface FeedWithClaudeProps {
 }
 
 // Configuration
-const API_BASE_URL = "https://linkedin-megalite-server-production.up.railway.app/api"
+const API_BASE_URL = "https://linkedin-megalite-server:8080/api"
 
 // process.env.SERVER_SERVICE_NAME
 //   ? `https://${process.env.SERVER_SERVICE_NAME}/api` 
