@@ -63,7 +63,7 @@ export const Main = () => {
   useEffect(() => {
     // Only generate permutation if not already done
     if (postIds.length === 0) {
-      const randomIds = generateRandomPermutation(100);
+      const randomIds = generateRandomPermutation(50);
       setPostIds(randomIds);
     }
   }, [postIds.length]);
@@ -74,8 +74,8 @@ export const Main = () => {
       (entries) => {
         const entry = entries[0];
         if (entry.isIntersecting) {
-          setVisibleCount((prev) => Math.min(prev + 2, 100)); // Limit to 100 items
-          setScrolledPosts(prev => Math.min(prev + 2, 100));
+          setVisibleCount((prev) => Math.min(prev + 2, 50)); // Limit to 100 items
+          setScrolledPosts(prev => Math.min(prev + 2, 50));
         }
       },
       {
